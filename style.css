@@ -49,4 +49,12 @@ p {
   font-size: 2rem;
 }
 
-img {}
+/* main styles */
+#img-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#img-container img {
+  max-width: 30%;
+}
