@@ -1,3 +1,6 @@
+let totalClicks = 0;
+let maxClicks = 5;
+
 const productNames = [
   "bag",
   "banana",
@@ -89,9 +92,39 @@ function handleClick(event) {
     }
   }
 
+  // each time we click we need to increase totalClicks
+  // we need to check if we've reached the maximum number of clicks allowed
+  // if we have, don't render more images, and remove the eventlistener on the image container
+  // we we haven't, render more images
+  totalClicks++;
+  console.log(totalClicks);
+  if (totalClicks === maxClicks) {
+    alert("Thank you for voting!");
+    imgContainer.removeEventListener("click", handleClick);
+    return; // end the function
+  }
   // get three new images
   renderImages();
 }
 
-const imgContainer = document.getElementById("img-container");
-imgContainer.addEventListener("click", handleClick);
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});

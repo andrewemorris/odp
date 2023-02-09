@@ -58,3 +58,10 @@ p {
 #img-container img {
   max-width: 30%;
 }
+
+.chart {
+  /* border: 3px solid royalblue; */
+  display: flex;
+  justify-content: center;
+  max-block-size: 40vh;
+}
