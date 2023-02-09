@@ -66,11 +66,11 @@ function renderImages() {
   img2.alt = Product.allProducts[ind2].name;
   img3.alt = Product.allProducts[ind3].name;
 
-  //Had to comment this out
-  //only works for 10 runs
+
   Product.allProducts[ind1].views++;
   Product.allProducts[ind2].views++;
   Product.allProducts[ind3].views++;
+
 }
 
 renderImages();
@@ -101,30 +101,44 @@ function handleClick(event) {
   if (totalClicks === maxClicks) {
     alert("Thank you for voting!");
     imgContainer.removeEventListener("click", handleClick);
+    renderChart();
     return; // end the function
   }
   // get three new images
   renderImages();
 }
+const imgContainer = document.getElementById("img-container");
+imgContainer.addEventListener("click", handleClick);
 
 
-const ctx = document.getElementById('myChart');
+// Chart
 
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
+function renderChart() {
+  let labels = [];
+  let views = [];
+  let clicks = [];
+  const ctx = document.getElementById('myChart');
+
+  for (let i = 0; i < Product.allProducts.length; i++) {
+    labels.push(Product.allProducts[i].name);
+    views.push(Product.allProducts[i].views);
+    clicks.push(Product.allProducts[i].clicks);
   }
-});
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Views',
+        data: views,
+        borderWidth: 1
+      },
+      {
+        label: '# of Votes',
+        data: clicks,
+        borderWidth: 1
+      }]
+    }
+  });
+}
